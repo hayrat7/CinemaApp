@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout" lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Projection List</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="page-header">
+			<h3 class="page-title">Projection</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a>Projection</a></li>
+					<li class="breadcrumb-item active" aria-current="page">List</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<form method="get" th:action="@{projection}">
+							<div class="input-group">
+
+								<input type="text" name="keyword" class="form-control"
+									placeholder="Ttap Name Here" th:value="${Keyword}">
+								<button class="btn btn-sm btn-gradient-primary">Search</button>
+							</div>
+						</form>
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Date De Projection</th>
+									<th>Prix</th>
+									<th>Salle</th>
+									<th>Film</th>
+									<th>Seance</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="p:${projections}">
+									<td th:text="${p.id}"></td>
+									<td th:text="${p.dateDeProjection}"></td>
+
+									<td><button type="button"
+											class="btn btn-outline-info btn-fw" th:text="${p.prix}"></button></td>
+									<td class="text-success" th:text="${p.salle.name}"></td>
+									<td th:text="${p.film.titre}"></td>
+									<td th:text="${p.seance.heureDebut}"></td>
+									
+									<td><a
+										onclick="return confirm('voulez vouz sure supprimer!')"
+										class="btn btn-gradient-danger btn-rounded btn-fw"
+										th:href="@{deleteProjection(id=${p.id})}">Delete</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="nav nav-pills">
+							<li th:each="page,status:${pages}"><a
+								th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+								th:href="@{projections(page=${status.index},size=${size},keyword=${keyword})}"
+								th:text="${status.index}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>

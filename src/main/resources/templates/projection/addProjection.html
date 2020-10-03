@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout" lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Add Film</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="page-header">
+			<h3 class="page-title">Projection</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a>Projection</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Add</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<form class="forms-sample" th:action="@{/saveProjection}" method="post"
+							th:object="${projection}" >
+							<div class="form-group">
+								<label for="exampleInputName1">Date De Projection</label> <input
+									required="required" th:value="${projection.dateDeProjection}"
+									name="dateDeProjection" type="date"
+									class="form-control form-control-lg " id="exampleInputName1"
+									placeholder="Date De Projection"> <span
+									th:errors="${projection.dateDeProjection}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="duree">Prix</label> <input
+									style="-moz-appearance: textfield;" name="prix" type=number
+									step=0.01 class="form-control form-control-lg "
+									id="exampleInputName1" placeholder="Prix"
+									th:value="${projection.prix}" required> <span
+									th:errors="${projection.prix}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="categorie">Salle</label> <select name="salle"
+									class="form-control form-control-lg"
+									id="exampleFormControlSelect2">
+									<option th:each="sa:${salles}" th:text="${sa.name}"
+										th:value="${sa.id}"></option>
+								</select> <span th:errors="${projection.salle}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="categorie">Film</label> <select name="film"
+									class="form-control form-control-lg"
+									id="exampleFormControlSelect2">
+									<option th:each="f:${films}" th:text="${f.titre}"
+										th:value="${f.id}"></option>
+								</select> <span th:errors="${projection.film}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="categorie">Seance</label> <select name=seance
+									class="form-control form-control-lg"
+									id="exampleFormControlSelect2">
+									<option th:each="s:${seances}" th:text="${s.heureDebut}"
+										th:value="${s.id}"></option>
+								</select> <span th:errors="${projection.seance}" class="text-danger"></span>
+							</div>
+							
+							<button type="submit" class="btn btn-gradient-primary mr-2">Add</button>
+							<button class="btn btn-light">Cancel</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>

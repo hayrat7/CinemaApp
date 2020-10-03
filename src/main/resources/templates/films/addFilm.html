@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout" lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Add Film</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="page-header">
+			<h3 class="page-title">Film</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a>Film</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Add</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<form class="forms-sample" th:action="@{/saveFilm}" method="post"
+							th:object="${film}" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="exampleInputName1">Titre</label> <input
+									required="required" th:value="${film.titre}" name="titre"
+									type="text" class="form-control form-control-lg "
+									id="exampleInputName1" placeholder="Titre"> <span
+									th:errors="${film.titre}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputName1">Description</label> <input
+									required="required" th:value="${film.description}"
+									name="description" type="text"
+									class="form-control form-control-lg " id="exampleInputName1"
+									placeholder="Description"> <span
+									th:errors="${film.description}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputName1">realisateur</label> <input
+									required="required" th:value="${film.realisateur}"
+									name="realisateur" type="text"
+									class="form-control form-control-lg " id="exampleInputName1"
+									placeholder="Realisateur"> <span
+									th:errors="${film.realisateur}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputName1">Date De Sortie</label> <input
+									required="required" th:value="${film.dateSortie}"
+									name="dateSortie" type="date"
+									class="form-control form-control-lg " id="exampleInputName1"
+									placeholder="Date De Sortie"> <span
+									th:errors="${film.dateSortie}" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="duree">Durée</label> <input
+									style="-moz-appearance: textfield;" name="duree" type=number
+									step=0.01 class="form-control form-control-lg "
+									id="exampleInputName1" placeholder="Duree"
+									th:value="${film.duree}" required> <span
+									th:errors="${film.duree}" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="categorie">Categorie</label> <select name="categorie"
+									class="form-control form-control-lg"
+									id="exampleFormControlSelect2">
+									<option th:each="c:${categories}" th:text="${c.name}"
+										th:value="${c.id}"></option>
+								</select> <span th:errors="${film.categorie.id}" class="text-danger"></span>
+							</div>
+							<div class="form-group">
+								<label for="photo">Photo</label> <input
+									 name="picture" type=file
+									step=0.01 class="form-control form-control-lg "
+									id="exampleInputName1" placeholder="photo"
+									 required> 
+									
+							</div>
+							<button type="submit" class="btn btn-gradient-primary mr-2">Add</button>
+							<button class="btn btn-light">Cancel</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>

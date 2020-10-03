@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout" lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Film List</title>
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet" href="/css/style.css">
+<!-- End layout styles -->
+<link rel="shortcut icon" href="/images/favicon.png" />
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="page-header">
+			<h3 class="page-title">Film</h3>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a>Film</a></li>
+					<li class="breadcrumb-item active" aria-current="page">List</li>
+				</ol>
+			</nav>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+
+						<form method="get" th:action="@{films}">
+							<div class="input-group">
+
+								<input type="text" name="keyword" class="form-control"
+									placeholder="Ttap Name Here" th:value="${Keyword}">
+								<button class="btn btn-sm btn-gradient-primary">Search</button>
+							</div>
+						</form>
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Photo</th>
+									<th>Titre</th>
+									<th>Realisateur</th>
+									<th>DateSortie</th>
+									<th>Duree</th>
+
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="f:${films}">
+									<td th:text="${f.id}"></td>
+									<td><img alt="" th:src="@{filmPicture(id=${f.id})}"></td>
+									<td><button type="button"
+									class="btn btn-outline-info btn-fw" th:text="${f.titre}"></button></td>
+									<td th:text="${f.realisateur}"></td>
+									<td th:text="${f.dateSortie}"></td>
+									<td th:text="${f.duree}"></td>
+									<td><a type="button"
+										class="btn btn-gradient-primary btn-rounded btn-fw"
+										th:href="@{editFilm(id=${f.id})}">Update</a></td>
+									<td><a
+										onclick="return confirm('voulez vouz sure supprimer!')"
+										class="btn btn-gradient-danger btn-rounded btn-fw"
+										th:href="@{deleteFilm(id=${f.id})}">Delete</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="nav nav-pills">
+							<li th:each="page,status:${pages}"><a
+								th:class="${status.index==currentPage?'btn btn-primary':'btn'}"
+								th:href="@{cinemas(page=${status.index},size=${size},keyword=${keyword})}"
+								th:text="${status.index}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>
